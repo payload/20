@@ -56,15 +56,10 @@ class HighscoreServer
         { name, score } = entry
         return null unless name? and score?
         return null if name['push']? != score['push']?
-        if name['push']?
-            return null if name.length != score.length
-            # list of names and list of scores with same length
-            for i in [0...name.length]
-                @highscore.push
-                    name: name[i]
-                    score: score[i]
-        else # one name and one score
-            @highscore.push entry
+        [name, score] = [[name],[score]] if not name['push']?
+        return null if name.length != score.length
+        for i in [0...name.length]
+            @highscore.push { name: name[i], score: score[i] }
         @delayed_save()
         "#{@highscore.length}"
 
