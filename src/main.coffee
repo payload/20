@@ -94,7 +94,6 @@ class HighscoreServer
             j = 0
             for other in @highscore
                 { name: oname, score: oscore } = other
-                console.log oscore, score[i], oscore < score[i]
                 break if oscore < score[i]
                 j += 1
             @highscore.splice j, 0,
